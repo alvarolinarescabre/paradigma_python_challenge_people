@@ -1,0 +1,152 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "La Compañia Plateada - People",
+		"version": "1.0.0",
+		"title": "La Compañia Plateada - People",
+		"contact": {
+			"email": "alinares@paradigmadigital.com"
+		}
+	},
+	"tags": [
+		{
+			"name": "People",
+			"description": "La Compañia Plateada - People"
+		}
+	],
+	"paths": {
+		"/v1/people": {
+			"get": {
+				"tags": [
+					"People"
+				],
+				"summary": "Returns All People",
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"People"
+				],
+				"summary": "Create Place",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "name",
+						"required": true,
+						"description": "Place Name",
+						"schema": {
+							"type": "object"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "OK"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/v1/people/{id}": {
+			"get": {
+				"tags": [
+					"Place By ID"
+				],
+				"summary": "Get Place request with given ID",
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"description": "Place Request id",
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					"404": {
+						"description": "Not Found."
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"Place By ID"
+				],
+				"summary": "Update Place",
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"description": "Place ID",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"in": "body",
+						"name": "name",
+						"required": true,
+						"description": "Place Update Name",
+						"schema": {
+							"type": "object"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Created"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Place By ID"
+				],
+				"summary": "Delete Place request with given ID",
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"description": "Place Request id",
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		}
+	}
+}
