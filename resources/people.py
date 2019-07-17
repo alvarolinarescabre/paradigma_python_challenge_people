@@ -60,7 +60,7 @@ class PeopleById(Resource):
         if people_id or people_name:
             person_parser = reqparse.RequestParser()
             person_parser.add_argument('name', location='json', required = True)
-            person_parser.add_argument('is_alive', 't')
+            person_parser.add_argument('is_alive', 1)
             person_parser.add_argument('place_id', location='json', required = True)
             person_args = person_parser.parse_args()        
             
