@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Sequence
+from sqlalchemy.exc import IntegrityError
 
 db = SQLAlchemy()
 
