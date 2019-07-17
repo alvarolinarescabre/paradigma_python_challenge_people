@@ -1,6 +1,6 @@
 from flask import jsonify, abort
 from flask_restful import Resource, reqparse, fields, marshal
-from .models import People, db
+from .models import People, db, IntegrityError
 import json
 
 people_fields = {
@@ -25,9 +25,12 @@ class Person(Resource):
         
         create_people = People(name = args['name'], is_alive = args['is_alive'], place_id = args['place_id'])
         
-        db.session.add(create_people)
-        db.session.commit()
-
+        try:
+            db.session.add(create_people)
+            db.session.commit()
+        except IntegrityError:
+                abort(409, 'Conflict')
+        
         if create_people:
             return json.dumps({'success':True}), 201, {'ContentType':'application/json'} 
         else:
@@ -55,9 +58,9 @@ class PeopleById(Resource):
         people_id = get_people_id.first()
 
         get_people_name = db.session.query(People.name).filter(People.name == get_args['name'])
-        people_name = get_people_id.first()
+        people_name = get_people_name.first()
 
-        if people_id or people_name:
+        if people_id:
             person_parser = reqparse.RequestParser()
             person_parser.add_argument('name', location='json', required = True)
             person_parser.add_argument('is_alive', location='json', required = True)
@@ -69,8 +72,11 @@ class PeopleById(Resource):
             update_person.is_alive = person_args['is_alive']
             update_person.place_id = person_args['place_id']
 
-            db.session.commit()
-            
+            try:
+                db.session.commit()
+            except IntegrityError:
+                abort(409, 'Conflict')
+                
             if update_person:
                 return json.dumps({'success':True}), 201, {'ContentType':'application/json'} 
             else:
