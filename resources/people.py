@@ -7,6 +7,7 @@ people_fields = {
     'id':   fields.Integer,
     'name': fields.String,
     'is_alive': fields.Boolean,
+    'is_king': fields.Boolean,
     'place_id': fields.Integer
 }
 
@@ -19,11 +20,12 @@ class Person(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('name', location='json', required = True)
         parser.add_argument('is_alive', location='json', required = True)
+        parser.add_argument('is_king', location='json', required = True)
         parser.add_argument('place_id', location='json', required = True)
 
         args = parser.parse_args()
         
-        create_people = People(name = args['name'], is_alive = args['is_alive'], place_id = args['place_id'])
+        create_people = People(name = args['name'], is_alive = args['is_alive'], is_king = args['is_king'],  place_id = args['place_id'])
         
         try:
             db.session.add(create_people)
@@ -64,12 +66,14 @@ class PeopleById(Resource):
             person_parser = reqparse.RequestParser()
             person_parser.add_argument('name', location='json', required = True)
             person_parser.add_argument('is_alive', location='json', required = True)
+            person_parser.add_argument('is_king', location='json', required = True)
             person_parser.add_argument('place_id', location='json', required = True)
             person_args = person_parser.parse_args()        
             
             update_person = People.query.get(get_args['id'])
             update_person.name = person_args['name']
             update_person.is_alive = person_args['is_alive']
+            update_person.is_alive = person_args['is_king']
             update_person.place_id = person_args['place_id']
 
             try:

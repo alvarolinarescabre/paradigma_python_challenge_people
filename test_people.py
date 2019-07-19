@@ -8,8 +8,8 @@ class PeopleTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app(config_name = "testing")
         self.client = self.app.test_client
-        self.place_create = json.loads('{"name": "Julio Stack", "is_alive": 1, "place_id": 3}')
-        self.place_update = json.loads('{"name": "Pedro Stack", "is_alive": 1, "place_id": 3}')
+        self.place_create = json.loads('{"name": "Julio Stack", "is_alive": 1, "is_king": 0, "place_id": 3}')
+        self.place_update = json.loads('{"name": "Pedro Stack", "is_alive": 1, "is_king": 1, "place_id": 3}')
 
     def returnId(self, action):
         res = self.client().get('/v1/people', content_type='application/json')
