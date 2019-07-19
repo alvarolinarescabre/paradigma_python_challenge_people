@@ -22,15 +22,15 @@ class PeopleTestCase(unittest.TestCase):
 
         return id_test
 
-    def test_step_1_People_creation(self):
+    def test_step_1_people_creation(self):
         res = self.client().post('/v1/people', data=json.dumps(self.place_create), content_type='application/json')
         self.assertEqual(res.status_code, 201)
 
-    def test_step_2_People_get_all(self):
+    def test_step_2_people_get_all(self):
         res = self.client().get('/v1/people', content_type='application/json')
         self.assertEqual(res.status_code, 200)
 
-    def test_step_3_People_by_id(self):
+    def test_step_3_people_by_id(self):
         id_test = self.returnId(self.place_create['name'])
         
         res = self.client().get(
@@ -38,7 +38,7 @@ class PeopleTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn('Julio Stack', str(res.data))
 
-    def test_step_4_People_edited(self):
+    def test_step_4_people_edited(self):
         id_test = self.returnId(self.place_create['name'])
       
         res = self.client().put('/v1/people/{}'.format(id_test),
@@ -50,7 +50,7 @@ class PeopleTestCase(unittest.TestCase):
                                 content_type='application/json')
         self.assertIn(self.place_update['name'], str(res.data))
 
-    def test_step_5_People_deletion(self):
+    def test_step_5_people_deletion(self):
         id_test = self.returnId(self.place_update['name'])
         
         res = self.client().delete(
